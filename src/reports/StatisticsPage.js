@@ -23,6 +23,7 @@ const columnsArray = [
   ['messagesStored', 'statisticsMessagesStored'],
   ['mailSent', 'notificatorMail'],
   ['smsSent', 'notificatorSms'],
+  ['whatsappSent', 'notificatorWhatsApp'],
   ['geocoderRequests', 'statisticsGeocoder'],
   ['geolocationRequests', 'statisticsGeolocation'],
 ];

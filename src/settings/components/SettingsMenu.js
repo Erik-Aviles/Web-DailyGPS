@@ -21,6 +21,8 @@ import {
 } from '../../common/util/permissions';
 import useFeatures from '../../common/util/useFeatures';
 
+// MUESTRA EL MENU DE LOS AJUSTES
+
 const MenuItem = ({
   title, link, icon, selected,
 }) => (

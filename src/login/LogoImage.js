@@ -26,8 +26,8 @@ const LogoImage = () => {
   const theme = useTheme();
   return (
     !useMediaQuery(theme.breakpoints.down('lg'))
-      ? <LogoB className={classes.image} alt="Logo de la marca dailyGPS" />
-      : <Logo className={classes.image} alt="Logo de la marca dailyGPS" />
+      ? <LogoB className={classes.image} alt="Logo de la marca dailyGPS pick" />
+      : <Logo className={classes.image} alt="Logo de la marca dailyGPS ligth" />
   );
 };
 

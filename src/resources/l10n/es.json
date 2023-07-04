@@ -500,6 +500,7 @@
     "notificatorWeb": "Web",
     "notificatorMail": "Correo",
     "notificatorSms": "SMS",
+    "notificatorWhatsApp": "WhatsApp",
     "notificatorFirebase": "Firebase",
     "notificatorTraccar": "Traccar",
     "notificatorTelegram": "Telegram",
