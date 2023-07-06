@@ -94,10 +94,13 @@ const Navigation = () => {
   }
   return (
     <Routes>
+      {/* Paginas del inicio de sesion */}
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/reset-password" element={<ResetPasswordPage />} />
       <Route path="/change-server" element={<ChangeServerPage />} />
+
+      {/* Pagina principal  */}
       <Route path="/" element={<App />}>
         <Route index element={<MainPage />} />
 

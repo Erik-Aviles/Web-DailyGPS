@@ -1,3 +1,4 @@
+/* Muestra la tarjeta como un popus ( nombre, iconos{eliminar,bloquear,desbloquear, editar, ...}) */
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -21,6 +22,8 @@ import CloseIcon from '@mui/icons-material/Close';
 import ReplayIcon from '@mui/icons-material/Replay';
 import PublishIcon from '@mui/icons-material/Publish';
 import EditIcon from '@mui/icons-material/Edit';
+import LockTwoToneIcon from '@mui/icons-material/LockTwoTone';
+import LockOpenTwoToneIcon from '@mui/icons-material/LockOpenTwoTone';
 import DeleteIcon from '@mui/icons-material/Delete';
 import PendingIcon from '@mui/icons-material/Pending';
 
@@ -248,6 +251,20 @@ const StatusCard = ({ deviceId, position, onClose, disableActions, desktopPaddin
                   disabled={disableActions || deviceReadonly}
                 >
                   <EditIcon />
+                </IconButton>
+                <IconButton
+                  color="secondary"
+                  // onClick={() => setRemoving(true)}
+                  disabled={disableActions}
+                >
+                  <LockTwoToneIcon />
+                </IconButton>
+                <IconButton
+                  // onClick={() => setRemoving(true)}
+                  disabled={disableActions}
+                  className={classes.negative}
+                >
+                  <LockOpenTwoToneIcon />
                 </IconButton>
                 <IconButton
                   onClick={() => setRemoving(true)}

@@ -1,3 +1,4 @@
+// Menu lateral inferior izquierdo (Mapa, Reporte, Ajustes, Cuenta)
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
