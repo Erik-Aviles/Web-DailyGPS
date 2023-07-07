@@ -110,6 +110,7 @@ const MainPage = () => {
       )}
       <div className={classes.sidebar}>
         <Paper square elevation={3} className={classes.header}>
+          {/* Muestra el encabezado */}
           <MainToolbar
             filteredDevices={filteredDevices}
             devicesOpen={devicesOpen}
@@ -134,18 +135,22 @@ const MainPage = () => {
               />
             </div>
           )}
+          {/* Muestra los dispositivos registrados */}
           <Paper square className={classes.contentList} style={devicesOpen ? {} : { visibility: 'hidden' }}>
             <DeviceList devices={filteredDevices} />
           </Paper>
         </div>
         {desktop && (
           <div className={classes.footer}>
+            {/* Muestra los botones de navegacion */}
             <BottomMenu />
           </div>
         )}
       </div>
+      {/* Muestra la pantalla de eventos */}
       <EventsDrawer open={eventsOpen} onClose={() => setEventsOpen(false)} />
       {selectedDeviceId && (
+        /* Muestra el popus del dispositivo */
         <StatusCard
           deviceId={selectedDeviceId}
           position={selectedPosition}

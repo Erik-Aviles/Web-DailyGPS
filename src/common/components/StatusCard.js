@@ -29,12 +29,14 @@ import PendingIcon from '@mui/icons-material/Pending';
 
 import { useTranslation } from './LocalizationProvider';
 import RemoveDialog from './RemoveDialog';
+import BloqueoDialog from './BloqueoDialog';
 import PositionValue from './PositionValue';
 import { useDeviceReadonly } from '../util/permissions';
 import usePositionAttributes from '../attributes/usePositionAttributes';
 import { devicesActions } from '../../store';
 import { useCatch, useCatchCallback } from '../../reactHelper';
 import { useAttributePreference } from '../util/preferences';
+import DesbloqueoDialog from './DesbloqueoDialog';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -131,6 +133,8 @@ const StatusCard = ({ deviceId, position, onClose, disableActions, desktopPaddin
   const [anchorEl, setAnchorEl] = useState(null);
 
   const [removing, setRemoving] = useState(false);
+  const [locked, setLocked] = useState(false);
+  const [unlocked, setUnlocked] = useState(false);
 
   const handleRemove = useCatch(async (removed) => {
     if (removed) {
@@ -142,6 +146,29 @@ const StatusCard = ({ deviceId, position, onClose, disableActions, desktopPaddin
       }
     }
     setRemoving(false);
+  });
+
+  const handleBloqueo = useCatch(async (blocked) => {
+    if (blocked) {
+      const response = await fetch('/api/devices');
+      if (response.ok) {
+        dispatch(devicesActions.refresh(await response.json()));
+      } else {
+        throw Error(await response.text());
+      }
+    }
+    setLocked(false);
+  });
+  const handleDesbloqueo = useCatch(async (unblocked) => {
+    if (unblocked) {
+      const response = await fetch('/api/devices');
+      if (response.ok) {
+        dispatch(devicesActions.refresh(await response.json()));
+      } else {
+        throw Error(await response.text());
+      }
+    }
+    setUnlocked(false);
   });
 
   const handleGeofence = useCatchCallback(async () => {
@@ -252,15 +279,18 @@ const StatusCard = ({ deviceId, position, onClose, disableActions, desktopPaddin
                 >
                   <EditIcon />
                 </IconButton>
+                {/* Boton de bloqueo VERDE*/}
                 <IconButton
                   color="secondary"
-                  // onClick={() => setRemoving(true)}
+                  onClick={() => setLocked(true)}
                   disabled={disableActions}
+
                 >
                   <LockTwoToneIcon />
                 </IconButton>
+                {/* Boton de desbloqueo ROJO*/}
                 <IconButton
-                  // onClick={() => setRemoving(true)}
+                  onClick={() => setUnlocked(true)}
                   disabled={disableActions}
                   className={classes.negative}
                 >
@@ -287,6 +317,18 @@ const StatusCard = ({ deviceId, position, onClose, disableActions, desktopPaddin
           <MenuItem component="a" target="_blank" href={`https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${position.latitude}%2C${position.longitude}&heading=${position.course}`}>{t('linkStreetView')}</MenuItem>
         </Menu>
       )}
+      <DesbloqueoDialog
+        open={unlocked}
+        endpoint="devices"
+        itemId={deviceId}
+        onResult={(unblocked) => handleDesbloqueo(unblocked)}
+      />
+      <BloqueoDialog
+        open={locked}
+        endpoint="devices"
+        itemId={deviceId}
+        onResult={(blocked) => handleBloqueo(blocked)}
+      />
       <RemoveDialog
         open={removing}
         endpoint="devices"

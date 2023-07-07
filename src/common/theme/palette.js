@@ -12,7 +12,7 @@ export default (server) => {
     medium: amber[700],
     negative: red[500],
     neutral: grey[500],
-    geometry: '#3bb2d0',
+    geometry: '#3bb2d0', /* celeste */
   };
 
   return {
