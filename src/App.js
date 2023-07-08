@@ -1,13 +1,14 @@
 import React from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { LinearProgress, useMediaQuery, useTheme } from '@mui/material';
+import { useMediaQuery, useTheme } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import BottomMenu from './common/components/BottomMenu';
 import SocketController from './SocketController';
 import CachingController from './CachingController';
 import { useEffectAsync } from './reactHelper';
 import { sessionActions } from './store';
+import Loading from './common/components/Loading';
 
 const useStyles = makeStyles(() => ({
   page: {
@@ -44,7 +45,7 @@ const App = () => {
     return null;
   }, [initialized]);
 
-  return !initialized ? (<LinearProgress />) : (
+  return !initialized ? (<Loading />) : (
     <>
       <SocketController />
       <CachingController />

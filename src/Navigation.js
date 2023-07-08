@@ -3,7 +3,6 @@ import {
   Route, Routes, useLocation, useNavigate,
 } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { LinearProgress } from '@mui/material';
 import MainPage from './main/MainPage';
 import CombinedReportPage from './reports/CombinedReportPage';
 import RouteReportPage from './reports/RouteReportPage';
@@ -54,6 +53,7 @@ import ScheduledPage from './reports/ScheduledPage';
 import DeviceConnectionsPage from './settings/DeviceConnectionsPage';
 import GroupConnectionsPage from './settings/GroupConnectionsPage';
 import UserConnectionsPage from './settings/UserConnectionsPage';
+import Loading from './common/components/Loading';
 
 const Navigation = () => {
   const navigate = useNavigate();
@@ -90,7 +90,7 @@ const Navigation = () => {
   }, [query]);
 
   if (!redirectsHandled) {
-    return (<LinearProgress />);
+    return (<Loading />);
   }
   return (
     <Routes>

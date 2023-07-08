@@ -4,7 +4,6 @@ import makeStyles from '@mui/styles/makeStyles';
 import { useTheme } from '@mui/material/styles';
 import LogoImage from './LogoImage';
 
-
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
