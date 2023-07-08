@@ -40,6 +40,16 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     marginTop: theme.spacing(2),
   },
+  textField: {
+    '& .MuiInputLabel-root': {
+      fontSize: '1rem', // Tamaño personalizado del label
+      fontWeight: '400',
+    },
+    '& .MuiInputBase-input': {
+      background: '#cbdbf2', // Color personalizado para el input
+      borderRadius: 'none',
+    },
+  },
 }));
 
 const LoginPage = () => {
@@ -154,6 +164,7 @@ const LoginPage = () => {
       <div className={classes.container}>
         {useMediaQuery(theme.breakpoints.down('lg')) && <LogoImage color={theme.palette.primary.main} />}
         <TextField
+          className={classes.textField}
           required
           error={failed}
           label={t('userEmail')}
@@ -166,6 +177,7 @@ const LoginPage = () => {
           helperText={failed && 'Invalid username or password'}
         />
         <TextField
+          className={classes.textField}
           required
           error={failed}
           label={t('userPassword')}
@@ -206,7 +218,7 @@ const LoginPage = () => {
           </Button>
           {languageEnabled && (
             <FormControl fullWidth>
-              <InputLabel>{t('loginLanguage')}</InputLabel>
+              <InputLabel className={classes.textField}>{t('loginLanguage')}</InputLabel>
               <Select label={t('loginLanguage')} value={language} onChange={(e) => setLanguage(e.target.value)}>
                 {languageList.map((it) => <MenuItem key={it.code} value={it.code}>{it.name}</MenuItem>)}
               </Select>

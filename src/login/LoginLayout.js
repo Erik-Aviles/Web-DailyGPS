@@ -28,16 +28,27 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+    height: '100%',
     flex: 1,
-    boxShadow: '-2px 0px 16px rgba(0, 0, 0, 0.25)',
     [theme.breakpoints.up('lg')]: {
       padding: theme.spacing(0, 25, 0, 0),
     },
+    backgroundImage: 'url(backgroundImage.jpg)',
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center',
   },
   form: {
     maxWidth: theme.spacing(52),
     padding: theme.spacing(5),
     width: '100%',
+    [theme.breakpoints.down('sm')]: {
+      padding: theme.spacing(3),
+      width: '90%'
+    },
+    borderRadius: theme.spacing(1),
+    boxShadow: '-2px 0px 16px rgba(0, 0, 0, 0.25)',
+    backgroundColor: 'rgba(245, 245, 245, 0.5)',
   },
 }));
 
