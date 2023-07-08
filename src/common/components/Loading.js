@@ -10,6 +10,22 @@ const useStyles = makeStyles(() => ({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  customLoader: {
+    color: '#F50057',
+    animation: '$spin 1s infinite cubic-bezier(0.68, -0.55, 0.27, 1.55)',
+  },
+  '@keyframes spin': {
+    '0%': {
+      transform: 'rotate(0deg)',
+    },
+    '50%': {
+      transform: 'rotate(180deg)',
+      borderRadius: '50%',
+    },
+    '100%': {
+      transform: 'rotate(360deg)',
+    },
+  },
 }));
 
 const Loading = () => {
@@ -17,7 +33,7 @@ const Loading = () => {
 
   return (
     <div className={classes.main}>
-      <CircularProgress />
+      <CircularProgress className={classes.customLoader} size={40} thickness={3} />
     </div>
   );
 };
