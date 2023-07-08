@@ -45,9 +45,9 @@ const useStyles = makeStyles((theme) => ({
       fontSize: '1rem', // Tamaño personalizado del label
       fontWeight: '400',
     },
-    '& .MuiInputBase-input': {
-      background: '#cbdbf2', // Color personalizado para el input
-      borderRadius: 'none',
+    '& .MuiInputBase-root': {
+      borderRadius: theme.spacing(0.5),
+      background: '#f1f1f1', // Color personalizado para el input
     },
   },
 }));
@@ -219,7 +219,7 @@ const LoginPage = () => {
           {languageEnabled && (
             <FormControl fullWidth>
               <InputLabel className={classes.textField}>{t('loginLanguage')}</InputLabel>
-              <Select label={t('loginLanguage')} value={language} onChange={(e) => setLanguage(e.target.value)}>
+              <Select className={classes.textField} label={t('loginLanguage')} value={language} onChange={(e) => setLanguage(e.target.value)}>
                 {languageList.map((it) => <MenuItem key={it.code} value={it.code}>{it.name}</MenuItem>)}
               </Select>
             </FormControl>
