@@ -20,13 +20,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const DesbloqueoDialog = ({ open, itemId, onResult, }) => {
+const DesbloqueoDialog = ({ open, itemId, onResult }) => {
   const classes = useStyles();
   const t = useTranslation();
 
   const handleSendDesbloqueo = useCatch(async () => {
     const command = { type: 'engineResume', deviceId: itemId };
-    console.log(command);
 
     const response = await fetch('/api/commands/send', {
       method: 'POST',
@@ -35,9 +34,9 @@ const DesbloqueoDialog = ({ open, itemId, onResult, }) => {
     });
     if (response.ok) {
       onResult(true);
-      console.log('Desbloqueado exitosamente')
+      // console.log('Desbloqueado exitosamente');
     } else {
-      console.log('Sigue intentando')
+      // console.log('Sigue intentando');
       throw Error(await response.text());
     }
   });

@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     [theme.breakpoints.down('sm')]: {
       padding: theme.spacing(3),
-      width: '90%'
+      width: '90%',
     },
     borderRadius: theme.spacing(1),
     boxShadow: '-2px 0px 16px rgba(0, 0, 0, 0.25)',
@@ -55,10 +55,10 @@ const useStyles = makeStyles((theme) => ({
 const LoginLayout = ({ children }) => {
   const classes = useStyles();
   const theme = useTheme();
-  const [load, setLoad] = useState(false)
+  const [load, setLoad] = useState(false);
 
   setTimeout(() => {
-    setLoad(true)
+    setLoad(true);
   }, 400);
 
   return (

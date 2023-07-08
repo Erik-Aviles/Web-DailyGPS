@@ -20,13 +20,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const BloqueoDialog = ({ open, itemId, onResult, }) => {
+const BloqueoDialog = ({ open, itemId, onResult }) => {
   const classes = useStyles();
   const t = useTranslation();
 
   const handleSendBloqueo = useCatch(async () => {
     const command = { type: 'engineStop', deviceId: itemId };
-    console.log(command);
 
     const response = await fetch('/api/commands/send', {
       method: 'POST',
@@ -35,9 +34,9 @@ const BloqueoDialog = ({ open, itemId, onResult, }) => {
     });
     if (response.ok) {
       onResult(true);
-      console.log('Bloqueado exitosamente')
+      // console.log('Bloqueado exitosamente');
     } else {
-      console.log('Sigue intentando')
+      // console.log('Sigue intentando');
       throw Error(await response.text());
     }
   });
