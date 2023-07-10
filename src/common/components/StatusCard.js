@@ -279,16 +279,13 @@ const StatusCard = ({ deviceId, position, onClose, disableActions, desktopPaddin
                 >
                   <EditIcon />
                 </IconButton>
-                {/* Boton de bloqueo VERDE*/}
                 <IconButton
                   color="secondary"
                   onClick={() => setLocked(true)}
                   disabled={disableActions}
-
                 >
                   <LockTwoToneIcon />
                 </IconButton>
-                {/* Boton de desbloqueo ROJO*/}
                 <IconButton
                   onClick={() => setUnlocked(true)}
                   disabled={disableActions}

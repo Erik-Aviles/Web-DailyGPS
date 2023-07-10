@@ -59,7 +59,7 @@ const LoginLayout = ({ children }) => {
 
   setTimeout(() => {
     setLoad(true);
-  }, 400);
+  }, 1000);
 
   return (
     <main className={classes.root}>
