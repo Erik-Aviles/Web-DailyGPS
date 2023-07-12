@@ -21,17 +21,19 @@ import makeStyles from '@mui/styles/makeStyles';
 import CloseIcon from '@mui/icons-material/Close';
 import ReplayIcon from '@mui/icons-material/Replay';
 import PublishIcon from '@mui/icons-material/Publish';
-import EditIcon from '@mui/icons-material/Edit';
+import FenceTwoToneIcon from '@mui/icons-material/FenceTwoTone';
+// import EditIcon from '@mui/icons-material/Edit';
 import LockTwoToneIcon from '@mui/icons-material/LockTwoTone';
 import LockOpenTwoToneIcon from '@mui/icons-material/LockOpenTwoTone';
-import DeleteIcon from '@mui/icons-material/Delete';
+import DirectionsTwoToneIcon from '@mui/icons-material/DirectionsTwoTone';
 import PendingIcon from '@mui/icons-material/Pending';
+// import DeleteIcon from '@mui/icons-material/Delete';
 
 import { useTranslation } from './LocalizationProvider';
-import RemoveDialog from './RemoveDialog';
+// import RemoveDialog from './RemoveDialog';
 import BloqueoDialog from './BloqueoDialog';
 import PositionValue from './PositionValue';
-import { useDeviceReadonly } from '../util/permissions';
+// import { useDeviceReadonly } from '../util/permissions';
 import usePositionAttributes from '../attributes/usePositionAttributes';
 import { devicesActions } from '../../store';
 import { useCatch, useCatchCallback } from '../../reactHelper';
@@ -65,6 +67,12 @@ const useStyles = makeStyles((theme) => ({
   },
   negative: {
     color: theme.palette.colors.negative,
+  },
+  indicationButton: {
+    color: theme.palette.colors.geometry,
+  },
+  fenceButton: {
+    color: theme.palette.colors.medium,
   },
   icon: {
     width: '25px',
@@ -121,7 +129,7 @@ const StatusCard = ({ deviceId, position, onClose, disableActions, desktopPaddin
   const dispatch = useDispatch();
   const t = useTranslation();
 
-  const deviceReadonly = useDeviceReadonly();
+  // const deviceReadonly = useDeviceReadonly();
 
   const device = useSelector((state) => state.devices.items[deviceId]);
 
@@ -132,21 +140,21 @@ const StatusCard = ({ deviceId, position, onClose, disableActions, desktopPaddin
 
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const [removing, setRemoving] = useState(false);
+  // const [removing, setRemoving] = useState(false);
   const [locked, setLocked] = useState(false);
   const [unlocked, setUnlocked] = useState(false);
 
-  const handleRemove = useCatch(async (removed) => {
-    if (removed) {
-      const response = await fetch('/api/devices');
-      if (response.ok) {
-        dispatch(devicesActions.refresh(await response.json()));
-      } else {
-        throw Error(await response.text());
-      }
-    }
-    setRemoving(false);
-  });
+  // const handleRemove = useCatch(async (removed) => {
+  //   if (removed) {
+  //     const response = await fetch('/api/devices');
+  //     if (response.ok) {
+  //       dispatch(devicesActions.refresh(await response.json()));
+  //     } else {
+  //       throw Error(await response.text());
+  //     }
+  //   }
+  //   setRemoving(false);
+  // });
 
   const handleBloqueo = useCatch(async (blocked) => {
     if (blocked) {
@@ -174,7 +182,7 @@ const StatusCard = ({ deviceId, position, onClose, disableActions, desktopPaddin
   const handleGeofence = useCatchCallback(async () => {
     const newItem = {
       name: '',
-      area: `CIRCLE (${position.latitude} ${position.longitude}, 50)`,
+      area: `CIRCLE (${position.latitude} ${position.longitude}, 40)`,
     };
     const response = await fetch('/api/geofences', {
       method: 'POST',
@@ -274,11 +282,19 @@ const StatusCard = ({ deviceId, position, onClose, disableActions, desktopPaddin
                   <PublishIcon />
                 </IconButton>
                 <IconButton
+                  color="medium"
+                  onClick={handleGeofence}
+                  disabled={disableActions}
+                  className={classes.fenceButton}
+                >
+                  <FenceTwoToneIcon />
+                </IconButton>
+                {/* <IconButton
                   onClick={() => navigate(`/settings/device/${deviceId}`)}
                   disabled={disableActions || deviceReadonly}
                 >
                   <EditIcon />
-                </IconButton>
+                </IconButton> */}
                 <IconButton
                   color="secondary"
                   onClick={() => setLocked(true)}
@@ -293,13 +309,23 @@ const StatusCard = ({ deviceId, position, onClose, disableActions, desktopPaddin
                 >
                   <LockOpenTwoToneIcon />
                 </IconButton>
-                <IconButton
+                {position && (
+                  <IconButton
+                    target="_blank"
+                    href={`https://www.google.com/maps/dir/${position.latitude},${position.longitude}/${position.latitude},${position.longitude}/@${position.course},17z/data=!3m1!4b1?entry=ttu`}
+                    disabled={disableActions || !position}
+                    className={classes.indicationButton}
+                  >
+                    <DirectionsTwoToneIcon />
+                  </IconButton>
+                )}
+                {/* <IconButton
                   onClick={() => setRemoving(true)}
                   disabled={disableActions || deviceReadonly}
                   className={classes.negative}
                 >
                   <DeleteIcon />
-                </IconButton>
+                  </IconButton> */}
               </CardActions>
             </Card>
           </Draggable>
@@ -308,7 +334,6 @@ const StatusCard = ({ deviceId, position, onClose, disableActions, desktopPaddin
       {position && (
         <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={() => setAnchorEl(null)}>
           <MenuItem onClick={() => navigate(`/position/${position.id}`)}><Typography color="secondary">{t('sharedShowDetails')}</Typography></MenuItem>
-          <MenuItem onClick={handleGeofence}>{t('sharedCreateGeofence')}</MenuItem>
           <MenuItem component="a" target="_blank" href={`https://www.google.com/maps/search/?api=1&query=${position.latitude}%2C${position.longitude}`}>{t('linkGoogleMaps')}</MenuItem>
           <MenuItem component="a" target="_blank" href={`http://maps.apple.com/?ll=${position.latitude},${position.longitude}`}>{t('linkAppleMaps')}</MenuItem>
           <MenuItem component="a" target="_blank" href={`https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${position.latitude}%2C${position.longitude}&heading=${position.course}`}>{t('linkStreetView')}</MenuItem>
@@ -326,12 +351,12 @@ const StatusCard = ({ deviceId, position, onClose, disableActions, desktopPaddin
         itemId={deviceId}
         onResult={(blocked) => handleBloqueo(blocked)}
       />
-      <RemoveDialog
+      {/* <RemoveDialog
         open={removing}
         endpoint="devices"
         itemId={deviceId}
         onResult={(removed) => handleRemove(removed)}
-      />
+      /> */}
     </>
   );
 };
