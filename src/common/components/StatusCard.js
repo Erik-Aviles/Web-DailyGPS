@@ -63,8 +63,8 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1, 1, 0, 2),
   },
   content: {
-    paddingTop: theme.spacing(1),
-    paddingBottom: theme.spacing(1),
+    paddingTop: 0,
+    paddingBottom: 0,
   },
   negative: {
     color: theme.palette.colors.negative,
@@ -84,6 +84,7 @@ const useStyles = makeStyles((theme) => ({
     "& .MuiTableCell-sizeSmall": {
       paddingLeft: 0,
       paddingRight: 0,
+      paddingBottom: 0,
     },
   },
   cell: {
@@ -351,7 +352,11 @@ const StatusCard = ({
                 {position && (
                   <IconButton
                     target="_blank"
-                    href={`https://www.google.com/maps/dir/${position.latitude},${position.longitude}/${position.latitude},${position.longitude}/@${position.course},17z/data=!3m1!4b1?entry=ttu`}
+                    href={`https://www.google.com/maps/dir/${
+                      position.latitude
+                    },${position.longitude}/${""}/@${
+                      position.course
+                    },17z/data=!3m1!4b1?entry=ttu`}
                     disabled={disableActions || !position}
                     className={classes.indicationButton}
                   >
@@ -364,7 +369,6 @@ const StatusCard = ({
                   className={classes.negative}
                 >
                   <DeleteIcon />
-                  {t("linkStreetView")}
                 </IconButton>
               </CardActions>
             </Card>
